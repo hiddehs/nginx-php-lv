@@ -13,6 +13,7 @@ RUN apt-get update \
     && apt-get -y autoclean
 RUN curl -fsSL https://deb.nodesource.com/setup_15.x | bash -
 RUN apt-get install -y nodejs
+RUN npm install -g npm
 # confirm installation
 RUN node -v
 RUN npm -v
