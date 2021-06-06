@@ -24,8 +24,6 @@ RUN chown -R nginx:nginx vendor
 USER nginx
 ADD --chown=nginx:nginx . /app
 
-RUN chmod +x db_migrate.sh
-
 RUN composer dump-autoload --no-dev --optimize
 
 USER root
