@@ -29,6 +29,7 @@ RUN buildDeps='curl gcc make autoconf libc-dev zlib1g-dev pkg-config' \
     echo "deb http://nginx.org/packages/mainline/debian/ buster nginx" >> /etc/apt/sources.list \
     && wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
     && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
+    && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -q -y \
             apt-utils \
@@ -59,6 +60,7 @@ RUN buildDeps='curl gcc make autoconf libc-dev zlib1g-dev pkg-config' \
             php8.1-intl \
             php8.1-xml \
             php-pear \
+            nodejs \
     && pecl -d php_suffix=8.1 install -o -f redis memcached \
     && mkdir -p /run/php \
     && pip install wheel \
@@ -99,7 +101,8 @@ RUN buildDeps='curl gcc make autoconf libc-dev zlib1g-dev pkg-config' \
     && apt-get purge -y --auto-remove $buildDeps \
     && apt-get clean \
     && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && RUN npm install -g npm
 
 # Supervisor config
 COPY ./supervisord.conf /etc/supervisord.conf
@@ -116,7 +119,6 @@ COPY ./start.sh /start.sh
 EXPOSE 80
 
 # Custom checkups
-
 RUN node -v
 RUN npm -v
 
