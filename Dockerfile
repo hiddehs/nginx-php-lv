@@ -102,7 +102,7 @@ RUN buildDeps='curl gcc make autoconf libc-dev zlib1g-dev pkg-config' \
     && apt-get clean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/* \
-    && RUN npm install -g npm
+    && npm install -g npm
 
 # Supervisor config
 COPY ./supervisord.conf /etc/supervisord.conf
