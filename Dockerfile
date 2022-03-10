@@ -31,7 +31,7 @@ RUN buildDeps='curl gcc make autoconf libc-dev zlib1g-dev pkg-config' \
     && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
     && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get update \
-    && apt-get install --no-install-recommends --no-install-suggests -q -y \
+    && apt-get install --no-install-recommends --allow-downgrades --no-install-suggests -q -y \
             apt-utils \
             nano \
             zip \
